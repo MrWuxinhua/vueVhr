@@ -52,7 +52,7 @@ export const postKeyValueRequest = (url, param) => {
             return ret;
         }],
         headers:{
-            'Content-Type' : 'application/x-www-form-urlenoded'
+            'Content-Type' : 'application/x-www-form-urlencoded'
         }
 
 
