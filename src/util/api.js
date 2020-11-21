@@ -11,6 +11,10 @@ axios.interceptors.response.use(success => {
             Message.error({message: success.data.message})
             return;
         }
+        //验证成功的信息提示
+        if (success.data.message) {
+        Message.success({message : success.data.message})
+        }
         //如果不符合上述信息则表示返回成功的信息
         return success.data;
 
@@ -48,16 +52,50 @@ export const postKeyValueRequest = (url, param) => {
             for (let i in data) {
                 ret += encodeURIComponent(i) + '=' + encodeURIComponent(data[i]) + '&'
             }
-            console.log(ret)
             return ret;
         }],
-        headers:{
-            'Content-Type' : 'application/x-www-form-urlencoded'
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
 
 
     })
+};
 
+//封装post请求
+export const postRequest = (url, params) => {
+    return axios({
+        method: "post",
+        url: `${base}${url}`,
+        data: params
+    })
+}
+
+//封装put请求
+export const putRequest = (url, params) => {
+    return axios({
+        method: "put",
+        url: `${base}${url}`,
+        data: params
+    })
+}
+
+//封装get请求
+export const getRequest = (url, params) => {
+    return axios({
+        method: "get",
+        url: `${base}${url}`,
+        data: params
+    })
+}
+
+//封装delete请求
+export const deleteRequest = (url, params) => {
+    return axios({
+        method: "delete",
+        url: `${base}${url}`,
+        data: params
+    })
 }
 
 
