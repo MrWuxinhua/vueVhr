@@ -4,7 +4,7 @@
             <div class="title">微人事</div>
             <el-dropdown class='userInfo' @command='commandHandler'>
                   <span class="el-dropdown-link">
-                    {{user.name}}<i><img class = "userface" :src="user.userface"> </i>
+                    {{user.name}}<i><img class="userface" :src="user.userface"> </i>
                   </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command='userInfo'>个人中心</el-dropdown-item>
@@ -14,19 +14,24 @@
             </el-dropdown>
         </el-header>
         <el-container>
+<!--            左侧导航栏-->
             <el-aside width="200px">
                 <el-menu router>
-                    <el-submenu index="1" v-for = "(item , index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+                    <el-submenu :index="index+''" v-for="(item , index) in routes" v-if="!item.hidden"
+                                :key="index">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>{{item.name}}</span>
+                            <i :class="item.iconCls" style="color: #469eff" ></i>
+                            <span class="iconCls" >{{item.name}}</span>
                         </template>
-                            <el-menu-item v-for="(children, indexj) in item.children " :key = "indexj" :index="children.path">
-                                {{children.name}}</el-menu-item>
+                        <el-menu-item v-for="(children, indexj) in item.children " :key="indexj" :index="children.path">
+                            {{children.name}}
+                        </el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>
-            <el-main> <router-view/></el-main>
+            <el-main>
+                <router-view/>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -37,6 +42,11 @@
         data() {
             return {
                 user: JSON.parse(window.sessionStorage.getItem("user"))
+            }
+        },
+        computed: {
+            routes() {
+                return this.$store.state.routes;
             }
         },
         methods: {
@@ -52,6 +62,8 @@
                         this.getRequest("/logout");
                         //删除sessionStorage
                         window.sessionStorage.removeItem("user");
+                        this.$store.commit('initRoutes',[]);
+
                         //跳转登录页
                         this.$router.replace("/")
                     }).catch(() => {
@@ -63,7 +75,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style>
@@ -86,16 +98,19 @@
         cursor: pointer; /*使指针变为手指样式*/
     }
 
-    .userface{
+    .userface {
         width: 45px;
         height: 45px;
         border-radius: 45px;
         margin-left: 8px;
     }
 
-    .el-dropdown-link{
+    .el-dropdown-link {
         display: flex;
         align-items: center;
+    }
+    .iconCls{
+        margin-left: 5px;
     }
 
 </style>
