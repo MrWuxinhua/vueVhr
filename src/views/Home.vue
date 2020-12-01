@@ -14,14 +14,14 @@
             </el-dropdown>
         </el-header>
         <el-container>
-<!--            左侧导航栏-->
+            <!--            左侧导航栏-->
             <el-aside width="200px">
                 <el-menu router>
                     <el-submenu :index="index+''" v-for="(item , index) in routes" v-if="!item.hidden"
                                 :key="index">
                         <template slot="title">
-                            <i :class="item.iconCls" style="color: #469eff" ></i>
-                            <span class="iconCls" >{{item.name}}</span>
+                            <i :class="item.iconCls" style="color: #469eff"></i>
+                            <span style="margin-left: 5px;">{{item.name}}</span>
                         </template>
                         <el-menu-item v-for="(children, indexj) in item.children " :key="indexj" :index="children.path">
                             {{children.name}}
@@ -30,6 +30,13 @@
                 </el-menu>
             </el-aside>
             <el-main>
+                <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.name != 'Home'">
+                    <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+                </el-breadcrumb>
+                <div class="homeWelcome" v-if="this.$router.currentRoute.name == 'Home'">
+                    <span>欢迎来到微人事</span>
+                </div>
                 <router-view/>
             </el-main>
         </el-container>
@@ -62,7 +69,7 @@
                         this.getRequest("/logout");
                         //删除sessionStorage
                         window.sessionStorage.removeItem("user");
-                        this.$store.commit('initRoutes',[]);
+                        this.$store.commit('initRoutes', []);
 
                         //跳转登录页
                         this.$router.replace("/")
@@ -109,8 +116,13 @@
         display: flex;
         align-items: center;
     }
-    .iconCls{
-        margin-left: 5px;
+
+    .homeWelcome {
+        text-align: center;
+        font-family: 华文行楷;
+        padding-top: 150px;
+        color: #469eff;
+        font-size: 50px;
     }
 
 </style>
