@@ -6,8 +6,9 @@
         </el-form-item>
 
         <el-form-item prop="password">
-            <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native
-                    ="submitLogin"></el-input>
+            <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"
+                      @keydown.enter.native
+                              ="submitLogin"></el-input>
         </el-form-item>
         <el-checkbox v-model="checked" class="loginChecked">记住密码</el-checkbox>
         <el-button type="primary" style="width: 100%" @click="submitLogin">登录</el-button>
@@ -42,8 +43,9 @@
                     if (valid) {
                         this.postKeyValueRequest("/dologin", this.loginForm).then(response => {
                             if (response) {
-                                window.sessionStorage.setItem("user" ,JSON.stringify(response.obj) )
-                                this.$router.replace("/home")
+                                window.sessionStorage.setItem("user", JSON.stringify(response.obj))
+                                let path = this.$route.query.redirect;
+                                this.$router.replace((path == '/' || path == undefined) ? "/home" : path)
                             }
 
                         })

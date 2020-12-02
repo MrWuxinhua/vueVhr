@@ -19,27 +19,11 @@ const routes = [
         name: 'Home',
         component: Home,
         hidden: true
-    },
-    {
-        path: '/home',
-        name: '导航一',
-        component: Home,
-        children: [
-            {
-                path: '/test1',
-                name: '选项一',
-                component: Test1
-            },
-            {
-                path: '/test2',
-                name: '选项二',
-                component: Test2
-            }
-        ]
-    },
+    }
 ]
 
 const router = new VueRouter({
+    mode : "history",
     routes
 })
 
