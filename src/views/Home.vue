@@ -37,7 +37,7 @@
                 <div class="homeWelcome" v-if="this.$router.currentRoute.name == 'Home'">
                     <span>欢迎来到微人事</span>
                 </div>
-                <router-view/>
+                <router-view class="homeRouterView"/>
             </el-main>
         </el-container>
     </el-container>
@@ -125,4 +125,7 @@
         font-size: 50px;
     }
 
+    .homeRouterView{
+        margin-top: 10px;
+    }
 </style>

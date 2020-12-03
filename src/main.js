@@ -27,13 +27,10 @@ router.beforeEach((to, from, next) => {
     if (to.path == '/') {
         next();
     } else {
-        console.log("user-->")
         if(window.sessionStorage.getItem("user")){
-            console.log("user")
             initMenu(router, store);
             next();
         }else{
-            console.log("nouser")
             next("/?redirect="+to.path)
         }
     }
