@@ -17,7 +17,7 @@
                     size="small"
                     border
                     stripe
-                    style="width: 60%"
+                    style="width: 75%"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
@@ -32,6 +32,14 @@
                         prop="name"
                         label="职位名称"
                         width="180">
+                </el-table-column>
+                <el-table-column
+                        label="状态"
+                        width="130">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
+                        <el-tag type="danger" v-else>已经用</el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="createDate"
@@ -60,8 +68,26 @@
                     :visible.sync="dialogVisible"
                     width="25%">
                 <div>
-                    <el-tag size='small'>职位</el-tag>
-                    <el-input size='small' class="updatePositionInput" v-model="updatePos.name" @keydown.enter.native = 'updatePosition'></el-input>
+                    <table>
+                        <tr>
+                            <td><el-tag size='small'>职位</el-tag></td>
+                            <td><el-input size='small' class="updatePositionInput" v-model="updatePos.name" @keydown.enter.native = 'updatePosition'></el-input></td>
+                        </tr>
+                        <tr>
+                            <td><el-tag size='small'>状态</el-tag></td>
+                            <td>
+                                <el-switch
+                                        style="display: block ; margin-left: 8px"
+                                        v-model="updatePos.enabled"
+                                        active-color="#13ce66"
+                                        inactive-color="#ff4949"
+                                        active-text="启用"
+                                        inactive-text="禁用">
+                                </el-switch>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
                 <span slot="footer" class="dialog-footer">
                     <el-button size='small' @click="dialogVisible = false">取 消</el-button>
@@ -81,7 +107,8 @@
                     name: ''
                 },
                 updatePos:{
-                    name: ''
+                    name: '',
+                    enabled:false
                 },
                 multipleSelection:[],
                 positions: [],
