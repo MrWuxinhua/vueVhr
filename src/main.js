@@ -19,7 +19,7 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 
-Vue.use(ElementUI);
+Vue.use(ElementUI,{size:"small"});
 
 
 //导航守卫
