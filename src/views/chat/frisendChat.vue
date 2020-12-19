@@ -1,12 +1,13 @@
 <template>
     <div>
-      EmpAdv
+        在线聊天
     </div>
+
 </template>
 
 <script>
     export default {
-        name: "EmpAdv",
+        name: "FrisendChat"
     }
 </script>
 
