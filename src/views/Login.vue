@@ -47,6 +47,7 @@
                         this.postKeyValueRequest("/dologin", this.loginForm).then(response => {
                             if (response) {
                                 window.sessionStorage.setItem("user", JSON.stringify(response.obj))
+                                this.$store.commit("INIT_CURRENTHR", JSON.stringify(response.obj));
                                 let path = this.$route.query.redirect;
                                 this.$router.replace((path == '/' || path == undefined) ? "/home" : path)
                             }

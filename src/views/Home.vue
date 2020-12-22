@@ -60,9 +60,12 @@
                 return this.$store.state.routes;
             }
         },
+        mounted() {
+            this.$store.dispatch('connect');
+        },
         methods: {
-            goChat(){
-              this.$router.push("/chat")
+            goChat() {
+                this.$router.push("/chat")
 
             },
             commandHandler(cmd) {
